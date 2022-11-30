@@ -12,6 +12,7 @@ function App() {
 
 const GreatDiv = styled.div`
   display: flex;
+  min-height: 100vh;
 `;
 
 export default App;
