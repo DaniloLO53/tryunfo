@@ -1,8 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-// import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
-function Form() {
+function Form(props) {
+  const {
+    cardName,
+    cardDescription,
+    cardAttr1,
+    cardAttr2,
+    cardAttr3,
+    cardImage,
+    cardRare,
+    cardTrunfo,
+    // hasTrunfo,
+    onInputChange,
+    onSaveButtonClick,
+    isSaveButtonDisabled,
+  } = props;
+
   return (
     <StyledFormContainer>
       <div>
@@ -13,6 +28,8 @@ function Form() {
             id="name-input"
             type="text"
             data-testid="name-input"
+            value={cardName}
+            onChange={onInputChange}
           />
         </label>
 
@@ -22,6 +39,8 @@ function Form() {
             id="description-input"
             type="textarea"
             data-testid="description-input"
+            value={cardDescription}
+            onChange={onInputChange}
           />
         </label>
 
@@ -32,6 +51,8 @@ function Form() {
               id="attr1-input"
               type="number"
               data-testid="attr1-input"
+              value={cardAttr1}
+              onChange={onInputChange}
             />
           </label>
 
@@ -41,6 +62,8 @@ function Form() {
               id="attr2-input"
               type="number"
               data-testid="attr2-input"
+              value={cardAttr2}
+              onChange={onInputChange}
             />
           </label>
 
@@ -50,6 +73,8 @@ function Form() {
               id="attr3-input"
               type="number"
               data-testid="attr3-input"
+              value={cardAttr3}
+              onChange={onInputChange}
             />
           </label>
         </div>
@@ -61,6 +86,8 @@ function Form() {
               id="image-input"
               type="text"
               data-testid="image-input"
+              value={cardImage}
+              onChange={onInputChange}
             />
           </label>
         </div>
@@ -71,6 +98,8 @@ function Form() {
             id="rare-input"
             type="text"
             data-testid="rare-input"
+            value={cardRare}
+            onChange={onInputChange}
           >
             <option>Normal</option>
             <option>Raro</option>
@@ -83,6 +112,8 @@ function Form() {
             id="trunfo-input"
             type="checkbox"
             data-testid="trunfo-input"
+            checked={cardTrunfo}
+            onChange={onInputChange}
           />
           <p>Super Trunfo</p>
         </label>
@@ -90,6 +121,8 @@ function Form() {
         <button
           type="button"
           data-testid="save-button"
+          disabled={isSaveButtonDisabled}
+          onClick={onSaveButtonClick}
         >
           <p>Salvar</p>
         </button>
@@ -187,5 +220,20 @@ const StyledFormContainer = styled.div`
     color: white;
   }
 `;
+
+Form.propTypes = {
+  cardName: PropTypes.string.isRequired,
+  cardDescription: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.number.isRequired,
+  cardAttr2: PropTypes.number.isRequired,
+  cardAttr3: PropTypes.number.isRequired,
+  cardImage: PropTypes.string.isRequired,
+  cardRare: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.string.isRequired,
+  // hasTrunfo: PropTypes.bool.isRequired,
+  onInputChange: PropTypes.func.isRequired,
+  onSaveButtonClick: PropTypes.func.isRequired,
+  isSaveButtonDisabled: PropTypes.bool.isRequired,
+};
 
 export default Form;
