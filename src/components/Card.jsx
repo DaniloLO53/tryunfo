@@ -12,7 +12,24 @@ function Card(props) {
     cardImage,
     cardRare,
     cardTrunfo,
+    remove,
+    setDeck,
+    setHasTrunfo,
+    // deck,
   } = props;
+
+  const removeButton = (
+    <StyledRemoveButton
+      type="button"
+      onClick={() => {
+        setDeck((prevState) => prevState.filter((card) => card.cardName !== cardName));
+        console.log(cardTrunfo);
+        setHasTrunfo(!cardTrunfo);
+      }}
+    >
+      Remover
+    </StyledRemoveButton>
+  );
 
   return (
     <StyledCardContainer>
@@ -53,6 +70,7 @@ function Card(props) {
           </div>
         </div>
       </StyledCard>
+      {remove && removeButton}
     </StyledCardContainer>
   );
 }
@@ -152,6 +170,15 @@ const StyledCard = styled.div`
   }
 `;
 
+const StyledRemoveButton = styled.button`
+  background-color: white;
+  padding: 10px 30px 10px 30px;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  color: #035e96;
+`;
+
 Card.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
@@ -161,6 +188,19 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  remove: PropTypes.bool.isRequired,
+  setDeck: PropTypes.func.isRequired,
+  setHasTrunfo: PropTypes.func.isRequired,
+  // deck: PropTypes.arrayOf(PropTypes.shape({
+  //   cardName: PropTypes.string.isRequired,
+  //   cardDescription: PropTypes.string.isRequired,
+  //   cardAttr1: PropTypes.string.isRequired,
+  //   cardAttr2: PropTypes.string.isRequired,
+  //   cardAttr3: PropTypes.string.isRequired,
+  //   cardImage: PropTypes.string.isRequired,
+  //   cardRare: PropTypes.string.isRequired,
+  //   cardTrunfo: PropTypes.bool.isRequired,
+  // })).isRequired,
 };
 
 export default Card;

@@ -14,11 +14,11 @@ function App() {
     cardImage: '',
     cardRare: 'normal',
     cardTrunfo: false,
-    hasTrunfo: false,
   });
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
   const [deck, setDeck] = useState([]);
   const [showDeck, setShowDeck] = useState(false);
+  const [hasTrunfo, setHasTrunfo] = useState(false);
 
   const onSaveButtonClick = () => {
     setDeck((prevState) => [...prevState, cardInfos]);
@@ -31,8 +31,8 @@ function App() {
       cardImage: '',
       cardRare: '',
       cardTrunfo: false,
-      hasTrunfo: cardInfos.cardTrunfo,
     });
+    setHasTrunfo(deck.some((card) => card.cardTrunfo) || cardInfos.cardTrunfo);
   };
 
   console.log(deck);
@@ -75,7 +75,14 @@ function App() {
   };
 
   return (
-    showDeck ? <Deck deck={deck} setShowDeck={setShowDeck} /> : (
+    showDeck ? (
+      <Deck
+        setHasTrunfo={setHasTrunfo}
+        deck={deck}
+        setShowDeck={setShowDeck}
+        setDeck={setDeck}
+      />
+    ) : (
       <GreatDiv>
         <Form
           cardName={cardInfos.cardName}
@@ -86,7 +93,7 @@ function App() {
           cardImage={cardInfos.cardImage}
           cardRare={cardInfos.cardRare}
           cardTrunfo={cardInfos.cardTrunfo}
-          hasTrunfo={cardInfos.hasTrunfo}
+          hasTrunfo={hasTrunfo}
           onInputChange={onInputChange}
           onSaveButtonClick={onSaveButtonClick}
           isSaveButtonDisabled={isSaveButtonDisabled}
@@ -107,6 +114,7 @@ function App() {
           cardImage={cardInfos.cardImage}
           cardRare={cardInfos.cardRare}
           cardTrunfo={cardInfos.cardTrunfo}
+          deck={deck}
         />
       </GreatDiv>
     )

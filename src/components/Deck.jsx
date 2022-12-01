@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-function Deck({ deck, setShowDeck }) {
+function Deck({
+  deck, setShowDeck, setDeck, setHasTrunfo,
+}) {
   return (
     <div>
       <SyledFilter>
@@ -50,6 +52,9 @@ function Deck({ deck, setShowDeck }) {
             cardImage={cardImage}
             cardRare={cardRare}
             cardTrunfo={cardTrunfo}
+            setDeck={setDeck}
+            setHasTrunfo={setHasTrunfo}
+            remove
           />
 
         ))}
@@ -120,6 +125,8 @@ Deck.propTypes = {
     cardTrunfo: PropTypes.bool.isRequired,
   })).isRequired,
   setShowDeck: PropTypes.func.isRequired,
+  setDeck: PropTypes.func.isRequired,
+  setHasTrunfo: PropTypes.func.isRequired,
 };
 
 export default Deck;
