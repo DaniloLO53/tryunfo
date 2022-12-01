@@ -28,6 +28,7 @@ function Form(props) {
             id="name-input"
             type="text"
             data-testid="name-input"
+            name="cardName"
             value={cardName}
             onChange={onInputChange}
           />
@@ -40,6 +41,7 @@ function Form(props) {
             type="textarea"
             data-testid="description-input"
             value={cardDescription}
+            name="cardDescription"
             onChange={onInputChange}
           />
         </label>
@@ -52,6 +54,7 @@ function Form(props) {
               type="number"
               data-testid="attr1-input"
               value={cardAttr1}
+              name="cardAttr1"
               onChange={onInputChange}
             />
           </label>
@@ -62,6 +65,7 @@ function Form(props) {
               id="attr2-input"
               type="number"
               data-testid="attr2-input"
+              name="cardAttr2"
               value={cardAttr2}
               onChange={onInputChange}
             />
@@ -73,6 +77,7 @@ function Form(props) {
               id="attr3-input"
               type="number"
               data-testid="attr3-input"
+              name="cardAttr3"
               value={cardAttr3}
               onChange={onInputChange}
             />
@@ -86,6 +91,7 @@ function Form(props) {
               id="image-input"
               type="text"
               data-testid="image-input"
+              name="cardImage"
               value={cardImage}
               onChange={onInputChange}
             />
@@ -99,6 +105,7 @@ function Form(props) {
             type="text"
             data-testid="rare-input"
             value={cardRare}
+            name="cardRare"
             onChange={onInputChange}
           >
             <option>Normal</option>
@@ -113,6 +120,7 @@ function Form(props) {
             type="checkbox"
             data-testid="trunfo-input"
             checked={cardTrunfo}
+            name="cardTrunfo"
             onChange={onInputChange}
           />
           <p>Super Trunfo</p>
@@ -229,7 +237,7 @@ Form.propTypes = {
   cardAttr3: PropTypes.number.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
-  cardTrunfo: PropTypes.string.isRequired,
+  cardTrunfo: PropTypes.bool.isRequired,
   // hasTrunfo: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
