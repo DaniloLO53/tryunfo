@@ -12,7 +12,7 @@ function Form(props) {
     cardImage,
     cardRare,
     cardTrunfo,
-    // hasTrunfo,
+    hasTrunfo,
     onInputChange,
     onSaveButtonClick,
     isSaveButtonDisabled,
@@ -56,6 +56,8 @@ function Form(props) {
               value={cardAttr1}
               name="cardAttr1"
               onChange={onInputChange}
+              min="0"
+              max="90"
             />
           </label>
 
@@ -68,6 +70,8 @@ function Form(props) {
               name="cardAttr2"
               value={cardAttr2}
               onChange={onInputChange}
+              min="0"
+              max="90"
             />
           </label>
 
@@ -80,6 +84,8 @@ function Form(props) {
               name="cardAttr3"
               value={cardAttr3}
               onChange={onInputChange}
+              min="0"
+              max="90"
             />
           </label>
         </div>
@@ -114,17 +120,19 @@ function Form(props) {
           </select>
         </label>
 
-        <label htmlFor="trunfo-input">
-          <input
-            id="trunfo-input"
-            type="checkbox"
-            data-testid="trunfo-input"
-            checked={cardTrunfo}
-            name="cardTrunfo"
-            onChange={onInputChange}
-          />
-          <p>Super Trunfo</p>
-        </label>
+        {hasTrunfo ? <p>Você já tem um Super Trunfo em seu baralho</p> : (
+          <label htmlFor="trunfo-input">
+            <input
+              id="trunfo-input"
+              type="checkbox"
+              data-testid="trunfo-input"
+              checked={cardTrunfo}
+              name="cardTrunfo"
+              onChange={onInputChange}
+            />
+            <p>Super Trunfo</p>
+          </label>
+        )}
 
         <button
           type="button"
@@ -146,6 +154,7 @@ const StyledFormContainer = styled.div`
   flex-direction: column;
   align-items: center;
   font-family: 'Epilogue', sans-serif;
+  font-size: 1.2rem;
 
   p {
     font-weight: 700;
@@ -232,13 +241,13 @@ const StyledFormContainer = styled.div`
 Form.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
-  cardAttr1: PropTypes.number.isRequired,
-  cardAttr2: PropTypes.number.isRequired,
-  cardAttr3: PropTypes.number.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  // hasTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   onInputChange: PropTypes.func.isRequired,
   onSaveButtonClick: PropTypes.func.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
