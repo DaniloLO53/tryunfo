@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
@@ -6,6 +7,18 @@ import Card from './Card';
 function Deck({
   deck, setShowDeck, setDeck, setHasTrunfo,
 }) {
+  const [filter, setFilter] = useState(null);
+
+  const handleChange = ({ target }) => {
+    const { value } = target;
+
+    const cardsFiltered = deck.filter(({ cardName }) => (
+      cardName.toLowerCase().includes(value.toLowerCase())
+    ));
+
+    setFilter(cardsFiltered);
+  };
+
   return (
     <div>
       <SyledFilter>
@@ -16,6 +29,8 @@ function Deck({
             <input
               id="name-filter"
               placeholder="Nome da Carta"
+              onChange={handleChange}
+              name="name"
             />
           </label>
           <label htmlFor="rare-filter">
@@ -33,7 +48,7 @@ function Deck({
         </button>
       </SyledFilter>
       <StyledDeck>
-        {deck.map(({
+        {(filter || deck).map(({
           cardName,
           cardDescription,
           cardAttr1,

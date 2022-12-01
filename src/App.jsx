@@ -35,7 +35,7 @@ function App() {
     setHasTrunfo(deck.some((card) => card.cardTrunfo) || cardInfos.cardTrunfo);
   };
 
-  console.log(deck);
+  // console.log(deck);
 
   const verifyAttributes = (attr1, attr2, attr3) => {
     const indivdualLimit = 90;
@@ -127,16 +127,16 @@ const GreatDiv = styled.div`
   min-height: 100vh;
 
   button[name=showDeck]{
-    background-color: #035e96;
+    background-color: #333333;
     color: white;
     font-weight: 700;
     position: absolute;
     left: 50%;
     top: calc(100% - 50px);
-    transform: translate(-50%, -100%);
+    transform: translate(-100%, -100%);
     padding: 20px 30px 20px 30px;
     border: none;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
   }
 `;
 
