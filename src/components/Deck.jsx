@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import Card from './Card';
@@ -7,17 +7,29 @@ import Card from './Card';
 function Deck({
   deck, setShowDeck, setDeck, setHasTrunfo,
 }) {
-  const [filter, setFilter] = useState(null);
+  const [filter, setFilter] = useState(deck);
+  const [nameFilter, setNameFilter] = useState('');
+  const [rareFilter, setRareFilter] = useState('');
 
-  const handleChange = ({ target }) => {
-    const { value } = target;
-
-    const cardsFiltered = deck.filter(({ cardName }) => (
-      cardName.toLowerCase().includes(value.toLowerCase())
+  useEffect(() => {
+    const finalFilterByRare = deck.filter(({ cardRare }) => {
+      if (rareFilter === 'Todas') {
+        return deck;
+      }
+      return cardRare.toLowerCase().includes(rareFilter.toLowerCase());
+    });
+    const finalFilterByName = deck.filter(({ cardName }) => (
+      cardName.toLowerCase().includes(nameFilter.toLowerCase())
     ));
 
-    setFilter(cardsFiltered);
-  };
+    const finalFilter = finalFilterByName
+      .filter(({ cardName: nameFromNameFilter }) => finalFilterByRare
+        .some(({ cardName: nameFromRareFilter }) => nameFromNameFilter === nameFromRareFilter));
+
+    console.log(finalFilterByRare, finalFilterByName, finalFilter);
+
+    setFilter(finalFilter);
+  }, [nameFilter, rareFilter]);
 
   return (
     <div>
@@ -29,15 +41,21 @@ function Deck({
             <input
               id="name-filter"
               placeholder="Nome da Carta"
-              onChange={handleChange}
+              onChange={({ target }) => setNameFilter(target.value)}
               name="name"
             />
           </label>
           <label htmlFor="rare-filter">
-            <input
+            <select
               id="rare-filter"
               placeholder="Raridade"
-            />
+              onChange={({ target }) => setRareFilter(target.value)}
+            >
+              <option>Todas</option>
+              <option>Normal</option>
+              <option>Raro</option>
+              <option>Muito Raro</option>
+            </select>
           </label>
         </div>
         <button
@@ -48,7 +66,7 @@ function Deck({
         </button>
       </SyledFilter>
       <StyledDeck>
-        {(filter || deck).map(({
+        {filter.map(({
           cardName,
           cardDescription,
           cardAttr1,
@@ -109,7 +127,8 @@ const SyledFilter = styled.div`
       background-color: red;
     }
 
-    input {
+    input,
+    select {
       height: 100%;
       width: 100%;
     }
