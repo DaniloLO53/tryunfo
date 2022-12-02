@@ -126,6 +126,7 @@ function App() {
         </button>
         <button
           type="button"
+          disabled={deck.length === 0}
           onClick={() => {
             setPlay(true);
             setRandomCards(deck.sort(() => Math.random() - 0.5));

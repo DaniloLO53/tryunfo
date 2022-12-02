@@ -40,6 +40,16 @@ function Play({ deck, randomCards, setRandomCards }) {
       {renderCard()}
       <button
         type="button"
+        name="random-card"
+        onClick={() => {
+          setRandomCards(deck.sort(() => Math.random() - 0.5));
+          setPosition(0);
+        }}
+      >
+        Embaralhar
+      </button>
+      <button
+        type="button"
         name="next-card"
         onClick={() => {
           console.log(position, randomCards);
@@ -48,7 +58,7 @@ function Play({ deck, randomCards, setRandomCards }) {
           ));
         }}
       >
-        Pŕoxima carta
+        Próxima carta
       </button>
       <p name="cards-left">
         Cartas restantes:
@@ -63,6 +73,15 @@ function Play({ deck, randomCards, setRandomCards }) {
 const StyledPlayContainer = styled.div`
   display: flex;
   min-height: 100vh;
+
+  button[name=random-card] {
+    background-color: white;
+    border-radius: 8px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    padding: 20px;
+  }
 
   button[name=next-card] {
     background-color: white;
