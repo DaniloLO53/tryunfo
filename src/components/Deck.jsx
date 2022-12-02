@@ -10,6 +10,7 @@ function Deck({
   const [filter, setFilter] = useState(deck);
   const [nameFilter, setNameFilter] = useState('');
   const [rareFilter, setRareFilter] = useState('');
+  const [trunfoFilter, setTrunfoFilter] = useState(false);
 
   useEffect(() => {
     const finalFilterByRare = deck.filter(({ cardRare }) => {
@@ -18,18 +19,25 @@ function Deck({
       }
       return cardRare.toLowerCase().includes(rareFilter.toLowerCase());
     });
+
     const finalFilterByName = deck.filter(({ cardName }) => (
       cardName.toLowerCase().includes(nameFilter.toLowerCase())
     ));
+
+    const finalTrunfoFilter = deck.filter(({ cardTrunfo }) => cardTrunfo === trunfoFilter) || [];
 
     const finalFilter = finalFilterByName
       .filter(({ cardName: nameFromNameFilter }) => finalFilterByRare
         .some(({ cardName: nameFromRareFilter }) => nameFromNameFilter === nameFromRareFilter));
 
-    console.log(finalFilterByRare, finalFilterByName, finalFilter);
+    console.log(finalTrunfoFilter);
 
-    setFilter(finalFilter);
-  }, [nameFilter, rareFilter]);
+    if (trunfoFilter) {
+      setFilter(finalTrunfoFilter);
+    } else {
+      setFilter(finalFilter);
+    }
+  }, [nameFilter, rareFilter, trunfoFilter]);
 
   return (
     <div>
@@ -37,12 +45,22 @@ function Deck({
         <h2>Todas as cartas</h2>
         <div>
           <p>Filtrar</p>
+          <label htmlFor="trunfo-filter" id="trunfo-filter">
+            <p>Super Trunfo</p>
+            <input
+              type="checkbox"
+              data-testid="trunfo-filter"
+              onChange={() => setTrunfoFilter(!trunfoFilter)}
+            />
+          </label>
+
           <label htmlFor="name-filter">
             <input
               id="name-filter"
               placeholder="Nome da Carta"
               onChange={({ target }) => setNameFilter(target.value)}
               name="name"
+              disabled={trunfoFilter}
             />
           </label>
           <label htmlFor="rare-filter">
@@ -50,6 +68,7 @@ function Deck({
               id="rare-filter"
               placeholder="Raridade"
               onChange={({ target }) => setRareFilter(target.value)}
+              disabled={trunfoFilter}
             >
               <option>Todas</option>
               <option>Normal</option>
@@ -124,7 +143,29 @@ const SyledFilter = styled.div`
     label {
       height: 40px;
       width: 300px;
-      background-color: red;
+      /* background-color: red; */
+      display: flex;
+      align-items: center;
+    }
+
+    label[id=trunfo-filter] {
+        /* background-color: green; */
+        display: flex;
+        /* justify-content: space-between; */
+        width: 250px;
+        margin-left: 30px;
+
+        p {
+          /* background-color: #035e96; */
+          height: 100%;
+          width: 80%;
+          display: flex;
+          align-items: center;
+        }
+
+        input {
+          width: 10%;
+        }
     }
 
     input,
