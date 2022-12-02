@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Form from './components/Form';
 import Card from './components/Card';
 import Deck from './components/Deck';
+import Play from './components/Play';
 
 function App() {
   const [cardInfos, setCardInfos] = useState({
@@ -18,7 +20,9 @@ function App() {
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState(true);
   const [deck, setDeck] = useState([]);
   const [showDeck, setShowDeck] = useState(false);
+  const [play, setPlay] = useState(false);
   const [hasTrunfo, setHasTrunfo] = useState(false);
+  const [randomCards, setRandomCards] = useState([]);
 
   const onSaveButtonClick = () => {
     setDeck((prevState) => [...prevState, cardInfos]);
@@ -74,15 +78,30 @@ function App() {
     setIsSaveButtonDisabled(!(attrValid && stringsValid));
   };
 
+  const chooseRender = () => {
+    if (showDeck) {
+      return (
+        <Deck
+          setHasTrunfo={setHasTrunfo}
+          deck={deck}
+          setShowDeck={setShowDeck}
+          setDeck={setDeck}
+        />
+      );
+    } if (play) {
+      return (
+        <Play
+          deck={deck}
+          setRandomCards={setRandomCards}
+          randomCards={randomCards}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
-    showDeck ? (
-      <Deck
-        setHasTrunfo={setHasTrunfo}
-        deck={deck}
-        setShowDeck={setShowDeck}
-        setDeck={setDeck}
-      />
-    ) : (
+    chooseRender() || (
       <GreatDiv>
         <Form
           cardName={cardInfos.cardName}
@@ -104,6 +123,16 @@ function App() {
           name="showDeck"
         >
           Mostrar baralho
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setPlay(true);
+            setRandomCards(deck.sort(() => Math.random() - 0.5));
+          }}
+          name="play"
+        >
+          Jogar
         </button>
         <Card
           cardName={cardInfos.cardName}
@@ -137,6 +166,19 @@ const GreatDiv = styled.div`
     padding: 20px 30px 20px 30px;
     border: none;
     border-radius: 10px 0 0 10px;
+  }
+
+  button[name=play]{
+    background-color: white;
+    color: #333333;
+    font-weight: 700;
+    position: absolute;
+    left: 50%;
+    top: calc(100% - 120px);
+    transform: translate(0, -100%);
+    padding: 20px 30px 20px 30px;
+    border: none;
+    border-radius: 0 10px 10px 0;
   }
 `;
 

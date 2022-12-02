@@ -191,16 +191,6 @@ Card.propTypes = {
   remove: PropTypes.bool.isRequired,
   setDeck: PropTypes.func.isRequired,
   setHasTrunfo: PropTypes.func.isRequired,
-  // deck: PropTypes.arrayOf(PropTypes.shape({
-  //   cardName: PropTypes.string.isRequired,
-  //   cardDescription: PropTypes.string.isRequired,
-  //   cardAttr1: PropTypes.string.isRequired,
-  //   cardAttr2: PropTypes.string.isRequired,
-  //   cardAttr3: PropTypes.string.isRequired,
-  //   cardImage: PropTypes.string.isRequired,
-  //   cardRare: PropTypes.string.isRequired,
-  //   cardTrunfo: PropTypes.bool.isRequired,
-  // })).isRequired,
 };
 
 export default Card;
